@@ -31,9 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
-!/bank-app.iml
-!/mvnw.cmd
-!/.mvn/
-!/.idea/
-!/mvnw
-!/HELP.md
+/.mvn/
+/mvnw
+/mvnw.cmd
