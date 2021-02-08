@@ -5,6 +5,7 @@ import com.nzei.bankapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -23,12 +24,27 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User findUserByName(String name) {
+        return userRepository.findByFullName(name);
+    }
+
+    public User depositMoney(Long accountNumber, Long amount) {
+        User userToDeposit = userRepository.findByAccountNumber(accountNumber);
+        Long updatedBalance = userToDeposit.getAccountBalance().longValue() + amount;
+        userToDeposit.setAccountBalance(updatedBalance);
+        return userRepository.save(userToDeposit);
+    }
+
     private String generateSecurityCode(User user) {
         Random random = new Random();
         String id = String.format("%04d", random.nextInt(10000));
-        String sc = user.getFullName().substring(0,2).toUpperCase() + id;
+        String sc = user.getFullName().substring(0, 2).toUpperCase() + id;
 
-        if(sc.equals(userRepository.findBySecurityCode(sc))){
+        if (sc.equals(userRepository.findBySecurityCode(sc))) {
             generateSecurityCode(user);
         }
         return sc;

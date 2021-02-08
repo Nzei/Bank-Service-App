@@ -11,4 +11,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     public User findBySecurityCode(String securityCode);
 
+    public User findByAccountNumber(Long accountNumber);
+
 }
