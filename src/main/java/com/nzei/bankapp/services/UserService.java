@@ -39,6 +39,13 @@ public class UserService {
         return userRepository.save(userToDeposit);
     }
 
+    public User withdrawMoney(Long accountNumber, Long amount) {
+        User userToWithdraw = userRepository.findByAccountNumber(accountNumber);
+        Long updatedBalance = userToWithdraw.getAccountBalance() - amount;
+        userToWithdraw.setAccountBalance(updatedBalance);
+        return userRepository.save(userToWithdraw);
+    }
+
     private String generateSecurityCode(User user) {
         Random random = new Random();
         String id = String.format("%04d", random.nextInt(10000));

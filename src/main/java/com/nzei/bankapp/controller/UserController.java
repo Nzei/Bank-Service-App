@@ -46,5 +46,9 @@ public class UserController {
         return userService.depositMoney(accountNumber,amount);
     }
 
+    @GetMapping("/withdraw/{accountNumber}/{amount}")
+    public User withdrawMoney(@PathVariable Long accountNumber, @PathVariable Long amount) {
+        return userService.withdrawMoney(accountNumber,amount);
+    }
 
 }
